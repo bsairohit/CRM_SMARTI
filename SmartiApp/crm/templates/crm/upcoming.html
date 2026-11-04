@@ -1,0 +1,9 @@
+{% extends "crm/base.html" %}
+{% block title %}Upcoming appointments{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Upcoming appointments</h1>
+  <a href="{% url 'job_create' %}">Book job</a>
+</div>
+{% include "crm/_job_table.html" %}
+{% endblock %}

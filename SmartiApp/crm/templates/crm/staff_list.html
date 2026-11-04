@@ -1,0 +1,27 @@
+{% extends "crm/base.html" %}
+{% block title %}Staff{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>Fitters and maintenance engineers</h1>
+  <a href="{% url 'staff_create' %}">Add staff member</a>
+</div>
+{% if staff_members %}
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Name</th><th>Role</th><th>Phone</th><th>Active</th></tr></thead>
+  <tbody>
+    {% for member in staff_members %}
+    <tr>
+      <td><a href="{{ member.get_absolute_url }}">{{ member.name }}</a></td>
+      <td>{{ member.get_role_display }}</td>
+      <td>{{ member.phone|default:"-" }}</td>
+      <td>{{ member.is_active|yesno:"Yes,No" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p>No staff yet.</p>
+{% endif %}
+{% endblock %}

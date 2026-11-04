@@ -1,0 +1,11 @@
+{% extends "crm/base.html" %}
+{% block title %}{{ member.name }}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{{ member.name }}</h1>
+  <a href="{% url 'staff_edit' member.pk %}">Edit staff member</a>
+</div>
+<p>{{ member.get_role_display }}{% if not member.is_active %} (inactive){% endif %}<br>Phone: {{ member.phone|default:"-" }}</p>
+<h2>Assigned jobs</h2>
+{% include "crm/_job_table.html" %}
+{% endblock %}

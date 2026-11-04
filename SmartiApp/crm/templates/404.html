@@ -1,0 +1,7 @@
+{% extends "crm/base.html" %}
+{% block title %}Page not found{% endblock %}
+{% block content %}
+<h1>Page not found</h1>
+<p>That page or record doesn't exist. It may have been moved, or the link may be wrong.</p>
+<p><a href="{% url 'upcoming_jobs' %}">Back to upcoming appointments</a></p>
+{% endblock %}

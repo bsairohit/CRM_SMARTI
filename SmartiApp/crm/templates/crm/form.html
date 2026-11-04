@@ -1,0 +1,11 @@
+{% extends "crm/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" class="stacked">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+  <a href="{{ cancel_url }}">Cancel</a>
+</form>
+{% endblock %}

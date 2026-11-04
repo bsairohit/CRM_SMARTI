@@ -1,0 +1,22 @@
+{% load static %}<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Smarti CRM{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'crm/style.css' %}">
+</head>
+<body>
+  <nav>
+    <strong><a href="{% url 'upcoming_jobs' %}">Smarti CRM</a></strong>
+    <a href="{% url 'upcoming_jobs' %}">Upcoming</a>
+    <a href="{% url 'job_list' %}">All jobs</a>
+    <a href="{% url 'customer_list' %}">Customers</a>
+    <a href="{% url 'staff_list' %}">Staff</a>
+  </nav>
+  {% for message in messages %}
+    <p class="message {{ message.tags }}">{{ message }}</p>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</body>
+</html>

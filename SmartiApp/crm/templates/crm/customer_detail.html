@@ -1,0 +1,27 @@
+{% extends "crm/base.html" %}
+{% block title %}{{ customer.name }}{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h1>{{ customer.name }}</h1>
+  <a href="{% url 'customer_edit' customer.pk %}">Edit customer</a>
+</div>
+<p>Phone: {{ customer.phone }}<br>Email: {{ customer.email|default:"-" }}</p>
+<p class="address">{{ customer.address }}</p>
+
+<h2>Onboarding status</h2>
+<form method="post" action="{% url 'customer_update_status' customer.pk %}" class="inline">
+  {% csrf_token %}
+  <select name="onboarding_status" aria-label="Onboarding status">
+    {% for value, label in status_choices %}
+    <option value="{{ value }}"{% if value == customer.onboarding_status %} selected{% endif %}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Update</button>
+</form>
+
+<div class="page-header">
+  <h2>Jobs</h2>
+  <a href="{% url 'job_create' %}?customer={{ customer.pk }}">Book job</a>
+</div>
+{% include "crm/_job_table.html" %}
+{% endblock %}

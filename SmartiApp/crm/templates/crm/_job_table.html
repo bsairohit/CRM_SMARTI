@@ -1,0 +1,35 @@
+{% if jobs %}
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Date</th><th>Time</th><th>Customer</th><th>Type</th><th>Assigned to</th><th>Status</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for job in jobs %}
+    <tr>
+      <td>{{ job.scheduled_date|date:"D j M Y" }}</td>
+      <td>{{ job.scheduled_time|time:"H:i" }}</td>
+      <td><a href="{{ job.customer.get_absolute_url }}">{{ job.customer.name }}</a></td>
+      <td>{{ job.get_job_type_display }}</td>
+      <td><a href="{{ job.staff.get_absolute_url }}">{{ job.staff.name }}</a></td>
+      <td>
+        <form method="post" action="{% url 'job_update_status' job.pk %}" class="inline">
+          {% csrf_token %}
+          <input type="hidden" name="next" value="{{ request.get_full_path }}">
+          <select name="status" aria-label="Status of job {{ job.pk }}">
+            {% for value, label in job.Status.choices %}
+            <option value="{{ value }}"{% if value == job.status %} selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit">Update</button>
+        </form>
+      </td>
+      <td><a href="{% url 'job_edit' job.pk %}">Edit</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<p>No jobs to show.</p>
+{% endif %}
